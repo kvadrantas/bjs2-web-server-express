@@ -88,9 +88,9 @@ app.get("/zmones", (req, res) => {
 
 // DELETING USER - (HTML RENDER AND DATA CHANGE)
 app.get("/zmogusDelete", (req, res) => {
-  const id = parseInt(req.query.id); console.log(req.query);
+  const id = parseInt(req.query.id); //console.log(req.query);
   const index = zmones.findIndex(e => e.id === id);     // suranda masyve elementa pagal duota id
-  console.log(index);
+  //console.log(index);
   if (index >= 0) {
     zmones.splice(index, 1);    // istrina masyvo elementa pagal duota id/index
   }
@@ -135,11 +135,11 @@ app.get("/zmogusEdit", (req, res) => {
 // EDITING OR ADDING NEW USER (DATA CHANGE)
 app.post("/zmogusSave", (req, res) => {
   let zmogus;
-  console.log(req.body);
+  // console.log(req.body);
   if (req.body.id) {
     const id = parseInt(req.body.id);
     zmogus = zmones.find((e) => e.id === id);
-    console.log(zmogus);
+    // console.log(zmogus);
     if (!zmogus) {
       res.redirect('/zmones');
       return;
@@ -163,7 +163,11 @@ app.post("/zmogusSave", (req, res) => {
     html += "<html>\r\n";
     html += "<body>\r\n";
     html += "<h1>Blogi duomenys</h1>\r\n";
-    html += "<h2> + klaidos + </h2>\r\n";
+    html += "<ul>";
+    for (const klaida of klaidos) {
+      html += `<li><p style="margin: 0;">${klaida}</p></li>\r\n`;
+    }
+    html += "</ul>"
     html += `<a href="/zmogusEdit${zmogus ? "/?id=" + zmogus.id : ""}">Atgal</a>\r\n"`;
     html += "</body>\r\n";
     html += "</html>\r\n";
